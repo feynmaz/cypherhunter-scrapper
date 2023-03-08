@@ -36,7 +36,11 @@ func (m mockDescriptionRepo) GetDescriptionFromHTML(html string) (description.De
 }
 
 func TestScrapper_GetDescription(t *testing.T) {
-	scrapper := NewScrapper(mockPageRepo{}, mockDescriptionRepo{})
+	scrapper, err := NewScrapper(
+		WithPageRepo(mockPageRepo{}),
+		WithDescriptionRepo(mockDescriptionRepo{}),
+	)
+	assert.NoError(t, err)
 
 	testCases := []struct {
 		test        string

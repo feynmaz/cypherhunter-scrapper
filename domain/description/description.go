@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/feynmaz/cypherhunter-scrapper/entity"
+	scrapper "github.com/feynmaz/cypherhunter-scrapper"
 	"github.com/feynmaz/cypherhunter-scrapper/tools"
 )
 
@@ -14,10 +14,10 @@ var (
 	ErrInvalidHomepageURL = errors.New("homepage URL is not valid")
 )
 
-// Description is aggregate that represents crypto project description
+// Description is an aggregate that represents crypto project description
 type Description struct {
-	project   *entity.Project
-	investors []*entity.Investor
+	project   *scrapper.Project
+	investors []*scrapper.Investor
 }
 
 func New(name, homepage string) (Description, error) {
@@ -30,11 +30,11 @@ func New(name, homepage string) (Description, error) {
 	if !tools.IsValidURL(homepage) {
 		return Description{}, ErrInvalidHomepageURL
 	}
-	project := &entity.Project{
+	project := &scrapper.Project{
 		Name:     name,
 		Homepage: homepage,
 	}
-	investors := []*entity.Investor{}
+	investors := []*scrapper.Investor{}
 
 	return Description{
 		project:   project,
@@ -50,12 +50,12 @@ func (d *Description) GetHomepage() string {
 	return d.project.Homepage
 }
 
-func (d *Description) GetInvestors() []*entity.Investor {
+func (d *Description) GetInvestors() []*scrapper.Investor {
 	return d.investors
 }
 
 func (d *Description) SetInvestor(name, homepage string) {
-	d.investors = append(d.investors, &entity.Investor{
+	d.investors = append(d.investors, &scrapper.Investor{
 		Name:     name,
 		Homepage: homepage,
 	})

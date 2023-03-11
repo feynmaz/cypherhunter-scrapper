@@ -21,6 +21,7 @@ type scrapper struct {
 	descriptionRepo description.Repository
 }
 
+// NewScrapper is a factory creating a new scraper
 func NewScrapper(cfgs ...ScrapperConfiguration) (*scrapper, error) {
 	s := &scrapper{}
 
